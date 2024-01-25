@@ -1,13 +1,13 @@
 package br.com.shinobi.demo.models;
 
-import lombok.Data;
 import jakarta.persistence.*;
+import lombok.Data;
 
 @Entity
 @Data
 public class Usuario {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column
@@ -21,5 +21,8 @@ public class Usuario {
 
     @Column
     private String playerName;
+
+    @Column
+    private Boolean online;
 
 }

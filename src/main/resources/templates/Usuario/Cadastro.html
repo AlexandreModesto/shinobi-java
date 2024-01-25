@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta name="viewport" content="width=width-device, initial-scale=1.0">
+    <link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css">
+    <script src="/webjars/jquery/3.5.1/jquery.min.js"></script>
+    <script src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+    <meta charset="UTF-8">
+    <title>Cadastro</title>
+</head>
+<body>
+<div class="container-fluid">
+    <form method="post" th:object="${usuario}" action="salvar">
+        <input type="email" placeholder="email" th:field="*{email}">
+        <input type="text" placeholder="usuario" th:field="*{username}">
+        <input type="password" placeholder="senha" th:field="*{password}">
+        <input type="text" placeholder="player name" th:field="*{playerName}">
+        <input type="submit" class="btn btn-primary" value="Salvar">
+    </form>
+</div>
+</body>
+</html>
