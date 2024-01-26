@@ -5,25 +5,20 @@ import lombok.Data;
 
 @Entity
 @Data
-public class Usuario {
+public class Player {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column
-    private String username;
-
-    @Column
-    private String email;
-
-    @Column
-    private String password;
 
     @Column
     @OneToOne
     private String playerName;
 
     @Column
-    private Boolean online;
+    private String villageName;
+
+    @Column
+    private String title;
 
 }

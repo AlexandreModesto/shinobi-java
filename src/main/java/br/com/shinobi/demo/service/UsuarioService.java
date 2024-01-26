@@ -6,15 +6,10 @@ import br.com.shinobi.demo.exceptions.EmailExistsException;
 import br.com.shinobi.demo.models.Usuario;
 import br.com.shinobi.demo.repository.UsuarioRepository;
 import br.com.shinobi.demo.util.Util;
-import com.google.protobuf.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.security.NoSuchAlgorithmException;
-import java.util.Objects;
-import java.util.Optional;
 
 @Service
 public class UsuarioService {
@@ -22,10 +17,6 @@ public class UsuarioService {
     @Autowired
     UsuarioRepository repository;
 
-
-    public void criarUsuario(Usuario objUsuario){
-        repository.save(objUsuario);
-    }
 
     public void salvarUsuario(Usuario user) throws Exception{
         try {
@@ -41,7 +32,12 @@ public class UsuarioService {
     }
 
     public Usuario realizarLogin(String username, String password) throws ServiceExcept {
+
         Usuario usuario = repository.checaDadosDeLogin(username,password);
+        if(usuario != null){
+            usuario.setOnline(true);
+            repository.save(usuario);
+        }
         return usuario;
     }
 

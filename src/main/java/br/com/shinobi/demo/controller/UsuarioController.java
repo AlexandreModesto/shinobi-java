@@ -2,66 +2,52 @@ package br.com.shinobi.demo.controller;
 
 
 import br.com.shinobi.demo.models.Usuario;
-import br.com.shinobi.demo.service.ServiceExcept;
 import br.com.shinobi.demo.service.UsuarioService;
 import br.com.shinobi.demo.util.Util;
-import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.naming.Binding;
-import java.security.NoSuchAlgorithmException;
-
 @RestController
-@RequestMapping(value = "user")
+@RequestMapping(value = "/usuario")
 public class UsuarioController {
 
     @Autowired
     UsuarioService service;
 
-    @GetMapping(value = "cadastro")
-    public ModelAndView CadastroView(){
+    @GetMapping(value = "/cadastro")
+    public ModelAndView cadastroView(){
         ModelAndView mv = new ModelAndView();
         mv.setViewName("Usuario/Cadastro");
-        mv.addObject("usuario", new Usuario());
         return mv;
     }
 
-    @GetMapping(value = "login")
-    public ModelAndView LoginView(){
+    @PostMapping(value = "/cadastrar")
+    public ResponseEntity<?> cadastrarUsuario(@RequestBody Usuario usuarioObject) throws Exception{
+        try {
+            service.salvarUsuario(usuarioObject);
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(e);
+        }
+        return ResponseEntity.status(HttpStatus.OK).body("Ok");
+    }
+
+    @GetMapping(value = "/login")
+    public ModelAndView loginView(){
         ModelAndView mv = new ModelAndView();
         mv.setViewName("Usuario/Login");
-        mv.addObject("usuario", new Usuario());
         return mv;
     }
 
-    @PostMapping(value = "salvar")
-    public ModelAndView CadastroPost(Usuario usuario) throws Exception{
-        ModelAndView mv = new ModelAndView();
-        service.salvarUsuario(usuario);
-        mv.setViewName("redirect:cadastro");
-        return mv;
-    }
-
-    @PostMapping(value = "/login")
-    public ModelAndView LoginPost(Usuario usuario, BindingResult br, HttpSession session) throws NoSuchAlgorithmException,ServiceExcept {
-        ModelAndView mv = new ModelAndView();
-        mv.addObject("usuario",new Object());
-        if(br.hasErrors()){
-            mv.setViewName("Usuario/Login");
-        }
+    @PostMapping(value = "/logar")
+    public ResponseEntity<?> logarUsuario(@RequestBody Usuario usuario) throws Exception{
         Usuario userLogin = service.realizarLogin(usuario.getUsername(), Util.md5(usuario.getPassword()));
         if(userLogin == null){
-            mv.addObject("msg","Usuário não encontrado");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Username ou senha incorreta");
         }else {
-            session.setAttribute("usuarioLogado",userLogin);
-            return CadastroView();
+            return ResponseEntity.status(HttpStatus.OK).body("OK");
         }
-        return mv;
     }
-
 }

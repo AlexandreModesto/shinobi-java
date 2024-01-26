@@ -7,16 +7,20 @@
     <script src="/webjars/bootstrap/js/bootstrap.min.js"></script>
     <meta charset="UTF-8">
     <title>Cadastro</title>
+    <script type="text/javascript" th:src="@{/js/script.js}"></script>
 </head>
 <body>
 <div class="container-fluid">
-    <form method="post" th:object="${usuario}" action="salvar">
-        <input type="email" placeholder="email" th:field="*{email}">
-        <input type="text" placeholder="usuario" th:field="*{username}">
-        <input type="password" placeholder="senha" th:field="*{password}">
-        <input type="text" placeholder="player name" th:field="*{playerName}">
-        <input type="submit" class="btn btn-primary" value="Salvar">
+    <form method="POST" action="cadastrar" id="formCadastro" >
+        <input type="email" name="email"  placeholder="email">
+        <input type="text" name="username" placeholder="usuario">
+        <input type="password" name="password" placeholder="senha">
+        <input type="text" name="playerName" placeholder="player name">
+        <input type="submit" class="btn btn-primary" th:onclick="enviarProBack('formCadastro','http://localhost:8080/usuario/cadastrar','http://localhost:8080/usuario/cadastro')" value="Salvar">
     </form>
 </div>
+<script>
+
+</script>
 </body>
 </html>
