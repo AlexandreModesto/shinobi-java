@@ -44,10 +44,11 @@ public class AuthenticationController {
 
     @PostMapping("/register")
     public ResponseEntity register(@RequestBody RegisterDTO data){
-        if(repository.findByUsername(data.username()) != null)return ResponseEntity.badRequest().build();
+        if(repository.findByUsername(data.username()) != null ||
+        repository.findByPlayerName(data.playerName()) != null)return ResponseEntity.badRequest().build();
 
         String encryptedPassword = new BCryptPasswordEncoder().encode(data.password());
-        Usuario novoUsuario = new Usuario(data.username(),encryptedPassword,data.role());
+        Usuario novoUsuario = new Usuario(data.username(),encryptedPassword,data.email(),data.playerName(),data.role(),false);
 
         repository.save(novoUsuario);
 

@@ -17,37 +17,4 @@ public class UsuarioController {
     @Autowired
     UsuarioService service;
 
-    @GetMapping(value = "/cadastro")
-    public ModelAndView cadastroView(){
-        ModelAndView mv = new ModelAndView();
-        mv.setViewName("Usuario/Cadastro");
-        return mv;
-    }
-
-    @PostMapping(value = "/cadastrar")
-    public ResponseEntity<?> cadastrarUsuario(@RequestBody Usuario usuarioObject) throws Exception{
-        try {
-            service.salvarUsuario(usuarioObject);
-        }catch (Exception e){
-            return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(e);
-        }
-        return ResponseEntity.status(HttpStatus.OK).body("Ok");
-    }
-
-    @GetMapping(value = "/login")
-    public ModelAndView loginView(){
-        ModelAndView mv = new ModelAndView();
-        mv.setViewName("Usuario/Login");
-        return mv;
-    }
-
-    @PostMapping(value = "/logar")
-    public ResponseEntity<?> logarUsuario(@RequestBody Usuario usuario) throws Exception{
-        Usuario userLogin = service.realizarLogin(usuario.getUsername(), Util.md5(usuario.getPassword()));
-        if(userLogin == null){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Username ou senha incorreta");
-        }else {
-            return ResponseEntity.status(HttpStatus.OK).body("OK");
-        }
-    }
 }

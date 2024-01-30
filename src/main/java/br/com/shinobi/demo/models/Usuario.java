@@ -39,10 +39,13 @@ public class Usuario implements UserDetails {
     private Boolean online;
 
 
-    public Usuario(String username, String password, UserRole role){
+    public Usuario(String username, String password,String email,String playerName, UserRole role, Boolean online){
         this.username=username;
         this.password=password;
         this.role=role;
+        this.playerName=playerName;
+        this.online=online;
+        this.email=email;
     }
 
     @Override

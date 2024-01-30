@@ -17,4 +17,7 @@ public interface UsuarioRepository extends JpaRepository<Usuario,Long> {
     public Usuario findByEmail(String email);
 
     UserDetails findByUsername(String username);
+
+    @Query("select p from Usuario p where p.playerName = :playerName")
+    UserDetails findByPlayerName(String playerName);
 }
