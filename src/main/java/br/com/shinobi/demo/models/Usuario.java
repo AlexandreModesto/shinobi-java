@@ -30,7 +30,6 @@ public class Usuario implements UserDetails {
     private String password;
 
     @Column
-    @OneToOne
     private String playerName;
 
     @Column

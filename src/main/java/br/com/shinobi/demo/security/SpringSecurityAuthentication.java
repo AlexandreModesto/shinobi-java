@@ -23,7 +23,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SpringSecurityAuthentication {
 
     @Autowired
-    SecurityFilter securityFilter;
+    public SecurityFilter securityFilter;
 
     @Bean
     public InMemoryUserDetailsManager userDetailsManager(){

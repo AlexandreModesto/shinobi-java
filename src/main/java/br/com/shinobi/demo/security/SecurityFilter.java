@@ -1,7 +1,6 @@
 package br.com.shinobi.demo.security;
 
 
-import br.com.shinobi.demo.models.Usuario;
 import br.com.shinobi.demo.repository.UsuarioRepository;
 import br.com.shinobi.demo.service.TokenService;
 import jakarta.servlet.FilterChain;
@@ -12,8 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -25,8 +22,9 @@ public class SecurityFilter extends OncePerRequestFilter {
     @Autowired
     TokenService tokenService;
 
+
     @Autowired
-    UsuarioRepository repository;
+    public UsuarioRepository repository;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException{
