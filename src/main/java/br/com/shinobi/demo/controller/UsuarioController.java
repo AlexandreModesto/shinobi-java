@@ -17,4 +17,11 @@ public class UsuarioController {
     @Autowired
     UsuarioService service;
 
+    @GetMapping(value = "/cadastro")
+    public ModelAndView RegisterView(){
+        ModelAndView mv = new ModelAndView();
+        mv.setViewName("Usuario/Cadastro");
+        return mv;
+    }
+
 }

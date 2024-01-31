@@ -11,12 +11,12 @@
 </head>
 <body>
 <div class="container-fluid">
-    <form method="POST" action="cadastrar" id="formCadastro" >
+    <form method="POST" action="" id="formCadastro" >
         <input type="email" name="email"  placeholder="email">
         <input type="text" name="username" placeholder="usuario">
         <input type="password" name="password" placeholder="senha">
         <input type="text" name="playerName" placeholder="player name">
-        <input type="submit" class="btn btn-primary" th:onclick="enviarProBack('formCadastro','http://localhost:8080/usuario/cadastrar','http://localhost:8080/usuario/cadastro')" value="Salvar">
+        <input type="submit" class="btn btn-primary" th:onclick="enviarProBack('formCadastro','http://localhost:8080/auth/register','http://localhost:8080/usuario/cadastro')" value="Salvar">
     </form>
 </div>
 <script>

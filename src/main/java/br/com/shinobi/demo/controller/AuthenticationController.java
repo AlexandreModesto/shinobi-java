@@ -2,6 +2,7 @@ package br.com.shinobi.demo.controller;
 
 import br.com.shinobi.demo.models.AuthenticationDTO;
 import br.com.shinobi.demo.models.RegisterDTO;
+import br.com.shinobi.demo.models.UserRole;
 import br.com.shinobi.demo.models.Usuario;
 import br.com.shinobi.demo.repository.UsuarioRepository;
 import br.com.shinobi.demo.service.TokenService;
@@ -48,7 +49,7 @@ public class AuthenticationController {
         repository.findByPlayerName(data.playerName()) != null)return ResponseEntity.badRequest().build();
 
         String encryptedPassword = new BCryptPasswordEncoder().encode(data.password());
-        Usuario novoUsuario = new Usuario(data.username(),encryptedPassword,data.email(),data.playerName(),data.role(),false);
+        Usuario novoUsuario = new Usuario(data.username(),encryptedPassword,data.email(),data.playerName(),UserRole.ADMIN,false);
 
         repository.save(novoUsuario);
 
