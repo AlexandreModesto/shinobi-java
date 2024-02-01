@@ -45,11 +45,11 @@ public class AuthenticationController {
 
     @PostMapping("/register")
     public ResponseEntity register(@RequestBody RegisterDTO data){
-        if(repository.findByUsername(data.username()) != null ||
-        repository.findByPlayerName(data.playerName()) != null)return ResponseEntity.badRequest().build();
+        if(repository.findByEmail(data.email()) != null)return ResponseEntity.status(HttpStatus.CONFLICT).body("Erro: email já em uso.");
+        else if (repository.findByPlayerName(data.playerName()) != null)return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("Erro: Nome de jogador já em uso.");
 
         String encryptedPassword = new BCryptPasswordEncoder().encode(data.password());
-        Usuario novoUsuario = new Usuario(data.username(),encryptedPassword,data.email(),data.playerName(),UserRole.ADMIN,false);
+        Usuario novoUsuario = new Usuario(data.username(),encryptedPassword,data.email(),data.playerName(),UserRole.USER,false);
 
         repository.save(novoUsuario);
 
