@@ -29,8 +29,9 @@ public class Usuario implements UserDetails {
     @Column
     private String password;
 
-    @Column
-    private String playerName;
+    @OneToOne
+    @JoinColumn(name = "player_id",referencedColumnName = "id")
+    private Player playerName;
 
     @Column
     private UserRole role;
@@ -39,11 +40,10 @@ public class Usuario implements UserDetails {
     private Boolean online;
 
 
-    public Usuario(String username, String password,String email,String playerName, UserRole role, Boolean online){
+    public Usuario(String username, String password,String email, UserRole role, Boolean online){
         this.username=username;
         this.password=password;
         this.role=role;
-        this.playerName=playerName;
         this.online=online;
         this.email=email;
     }
@@ -56,7 +56,7 @@ public class Usuario implements UserDetails {
 
     @Override
     public boolean isAccountNonExpired(){
-        return false;
+        return true;
     }
 
     @Override

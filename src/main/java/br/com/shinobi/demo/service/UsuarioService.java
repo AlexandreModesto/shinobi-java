@@ -5,11 +5,9 @@ import br.com.shinobi.demo.exceptions.CriptoExistException;
 import br.com.shinobi.demo.exceptions.EmailExistsException;
 import br.com.shinobi.demo.models.Usuario;
 import br.com.shinobi.demo.repository.UsuarioRepository;
-import br.com.shinobi.demo.util.Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.security.NoSuchAlgorithmException;
 
 @Service
 public class UsuarioService {
@@ -23,8 +21,8 @@ public class UsuarioService {
             if(repository.findByEmail(user.getEmail()) != null){
                 throw new EmailExistsException("Existe email cadastrado para : "+ user.getEmail());
             }
-            user.setPassword(Util.md5(user.getPassword()));
-        }catch (NoSuchAlgorithmException e){
+            user.setPassword(user.getPassword());
+        }catch (Exception e){
             throw new CriptoExistException("Erro na criptografia da senha");
         }
 

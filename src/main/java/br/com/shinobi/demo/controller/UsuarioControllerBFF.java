@@ -4,7 +4,6 @@ package br.com.shinobi.demo.controller;
 import br.com.shinobi.demo.models.Usuario;
 import br.com.shinobi.demo.service.ServiceExcept;
 import br.com.shinobi.demo.service.UsuarioService;
-import br.com.shinobi.demo.util.Util;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
@@ -51,7 +50,7 @@ public class UsuarioControllerBFF {
         if(br.hasErrors()){
             mv.setViewName("Usuario/Login");
         }
-        Usuario userLogin = service.realizarLogin(usuario.getUsername(), Util.md5(usuario.getPassword()));
+        Usuario userLogin = service.realizarLogin(usuario.getUsername(), usuario.getPassword());
         if(userLogin == null){
             mv.addObject("msg","Usuário não encontrado");
         }else {
